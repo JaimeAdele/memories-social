@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AppBar, Avatar, Button, Toolbar, Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
+import { jwtDecode } from 'jwt-decode';
 
 import useStyles from './styles';
 import memories from '../../images/memories.png';
@@ -28,7 +29,7 @@ const Navbar = () => {
     const token = user?.token;
 
     if (token) {
-      const decodedToken = decode(token);
+      const decodedToken = jwtDecode(token);
 
       if (decodedToken.exp * 1000 < new Date().getTime()) logout();
     }
